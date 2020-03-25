@@ -62,10 +62,13 @@ int swapper(char c1,char c2)
 
 string find(string text,string word)
 {
+
+
+
+if((text.find_first_not_of(' ') != string::npos) && (word.find_first_not_of(' ') != string::npos) )
+{
    char* cstrText = new char[text.length()+1];
-   char* cstrWord = new char(word.length()+1); 
    strcpy(cstrText,text.c_str());
-   strcpy(cstrWord,word.c_str());
     char* arrWord;
     arrWord = strtok(cstrText," ");
     int ans = 1;
@@ -77,14 +80,13 @@ string find(string text,string word)
         {
            if(counter < word.length())
            {
-            int ansSwap = swapper(arrWord[counter],cstrWord[counter]);
+            int ansSwap = swapper(arrWord[counter],word[counter]);
             ans = ans & ansSwap;
            }
            else
            {
                ans = 0;
            }
-           
             counter++;
         }
         if(counter != word.length())
@@ -95,15 +97,12 @@ string find(string text,string word)
         {
             return arrWord;
         }
-        //cout << counter << endl;
         arrWord = strtok(NULL," ");
     }
+}
    // throw 
-   if(ans == 0)
-    {
-        string test = "Could not load config file '" + word + "'";
-        throw std::invalid_argument(test);
-    }
+        string test = "Could'nt find word '" + word + "'";
+        throw invalid_argument(test);
     return "FAIL";
 }
 }
